@@ -1,18 +1,25 @@
-# E-commerce API Platform (Starter)
+# E-commerce API Platform
 
-A starter FastAPI project for a simple e-commerce API.
+FastAPI + SQLAlchemy API for products and orders.
 
 ## What it does
-- Lists products with pagination (`GET /products?skip=0&limit=20`)
-- Gets one product by id
-- Creates an order for an existing product
+- Lists products with pagination and a simple in-memory cache (`GET /products?skip=0&limit=20`)
+- Adds products (cache is cleared, so lists never go stale)
+- Creates orders only for products that exist
+
+## Database
+PostgreSQL: set `DATABASE_URL`, e.g. `postgresql://user:pass@localhost:5432/shop`.
+Without it, SQLite file `app.db` is used, so it runs anywhere.
 
 ## Run it
 ```bash
 pip install -r requirements.txt
 uvicorn main:app --reload
 ```
-Then open http://127.0.0.1:8000/docs
+Docs: http://127.0.0.1:8000/docs
 
-## Next steps
-Replace the in-memory lists with PostgreSQL, add Redis caching for repeated product data, and add tests for order and payment flows.
+## Tests
+```bash
+pytest
+```
+
